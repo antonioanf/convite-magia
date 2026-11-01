@@ -1,0 +1,30 @@
+{
+  "name": "convite-magico-anna-liz",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "otimizar-imagens": "node scripts/otimizar-imagens.mjs"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "canvas-confetti": "^1.9.3",
+    "framer-motion": "^11.15.0",
+    "gsap": "^3.12.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.35.5",
+    "vite": "^6.0.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "tailwindcss": "^4.0.0",
+    "typescript": "~5.7.2"
+  }
+}

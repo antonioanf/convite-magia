@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#0b1521"/><stop offset=".66" stop-color="#26373b"/><stop offset="1" stop-color="#10191c"/></linearGradient>
+    <linearGradient id="stone" x2="1" y2="1"><stop stop-color="#526067"/><stop offset=".44" stop-color="#26343a"/><stop offset="1" stop-color="#111a20"/></linearGradient>
+    <linearGradient id="metal" x2="1" y2="1"><stop stop-color="#f8dfa0"/><stop offset="1" stop-color="#9d6f34"/></linearGradient>
+    <radialGradient id="moon"><stop stop-color="#fff3d4"/><stop offset="1" stop-color="#9ea9a3"/></radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#sky)"/>
+  <circle cx="934" cy="145" r="77" fill="#d9dfcf" opacity=".08"/>
+  <circle cx="934" cy="145" r="48" fill="url(#moon)"/>
+  <path d="M0 366 130 252l97 83 145-160 108 148 161-87 140 111 149-167 150 178 120-75v347H0Z" fill="#25353a"/>
+  <path d="M210 531V331l55-51 49 51v-131l54-65 59 65v331Zm179 0V206l88-91 84 91v325Zm168 0V285l65-65 63 65v246Zm118 0V338l51-54 54 54v193Z" fill="url(#stone)" stroke="#667078" stroke-opacity=".4" stroke-width="4"/>
+  <path d="M284 346a14 14 0 0 1 28 0v36h-28Zm85-127a15 15 0 0 1 30 0v39h-30Zm86-23a17 17 0 0 1 34 0v46h-34Zm104 82a15 15 0 0 1 30 0v37h-30Zm103 87a14 14 0 0 1 28 0v33h-28Z" fill="#f3c477"/>
+  <path d="M0 510q240-29 490 0t710-6v126H0Z" fill="#0b171c"/>
+  <path d="M0 549h1200M112 572h983M324 594h720" stroke="#ad9a7652" stroke-width="3"/>
+  <rect x="474" y="52" width="252" height="451" rx="14" fill="#eadcba" stroke="url(#metal)" stroke-width="5"/>
+  <rect x="488" y="66" width="224" height="423" rx="9" fill="none" stroke="#9d7947" stroke-width="2"/>
+  <text x="600" y="115" text-anchor="middle" fill="#715b3f" font-family="Georgia,serif" font-size="17" letter-spacing="4">ACADEMIA DE MAGIA DE VALDORIA</text>
+  <path d="M560 134h80v76q-6 28-40 45-34-17-40-45Z" fill="#24483e" stroke="url(#metal)" stroke-width="4"/>
+  <path d="M600 139v103M565 172h70" stroke="#f1d48b" stroke-opacity=".65" stroke-width="2"/>
+  <path d="M578 168a12 12 0 1 1 14-17 10 10 0 1 0-14 17Z" fill="#f5d48a"/>
+  <path d="m618 183 3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1Z" fill="#f5d48a"/>
+  <text x="600" y="313" text-anchor="middle" fill="#593b63" font-family="cursive" font-size="78">Anna Liz</text>
+  <text x="600" y="357" text-anchor="middle" fill="#6d5537" font-family="Georgia,serif" font-size="27">4 aninhos</text>
+  <text x="600" y="411" text-anchor="middle" fill="#51483c" font-family="Georgia,serif" font-size="20">14 de março · 16h</text>
+  <text x="600" y="455" text-anchor="middle" fill="#6f5941" font-family="Georgia,serif" font-size="15" font-style="italic">Lux in Arcanis</text>
+</svg>

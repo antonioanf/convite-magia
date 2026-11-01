@@ -1,0 +1,6 @@
+node_modules/
+dist/
+imagens-originais/
+.env
+.env.*
+!.env.example
