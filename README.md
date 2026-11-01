@@ -1,76 +1,183 @@
-# Academia de Magia de Valdoria
+# ✨ Academia de Magia de Valdoria
 
-Convite digital mobile-first feito com Vite, React e TypeScript. As cenas usam Framer Motion e GSAP; as partículas e a revelação por varinha são desenhadas em Canvas 2D.
+### Uma experiência mágica. Um convite extraordinário.
 
-## Personalizar para outra festa
+A **Academia de Magia de Valdoria** é um convite digital interativo desenvolvido para transformar uma simples comemoração em uma verdadeira jornada pelo universo da magia.
 
-Edite somente `src/config/convite.ts` para alterar o nome da academia e seu lema, nome e idade da criança, data com fuso horário, local, mapa, WhatsApp dos responsáveis, prazo de confirmação, traje, presentes, chave Pix, música, fundos, paleta, cenas e medalhões. O WhatsApp deve conter apenas dígitos, com DDI e DDD (por exemplo, `5511999999999`). Configure também a chave Pix e o nome do titular antes de publicar, se for exibi-los.
+Criado com uma abordagem *mobile-first*, o projeto conduz os convidados por uma sequência de cenas encantadas, como se estivessem recebendo uma convocação oficial para ingressar em uma antiga academia de magia.
 
-Edite `assets` e `backgrounds` em `src/config/convite.ts` para trocar os assets sem alterar os componentes. Os caminhos atuais são:
+Cada interação revela um novo capítulo dessa aventura: um castelo misterioso, um livro encantado, uma carta de admissão, um mapa mágico e uma experiência especial com varinha.
 
-| Asset | Arquivo usado pelo convite |
+Mais do que apresentar informações sobre uma festa, Valdoria foi concebida para despertar curiosidade, criar expectativa e proporcionar uma experiência memorável antes mesmo do grande dia.
+
+---
+
+## 🏰 A experiência de Valdoria
+
+O convite é construído como uma pequena narrativa interativa, na qual cada etapa tem sua própria atmosfera visual e propósito.
+
+- **O Castelo de Valdoria:** a entrada para um mundo de mistério e encantamento.
+- **O Livro Encantado:** a descoberta dos primeiros segredos da academia.
+- **A Carta de Admissão:** o convite oficial para fazer parte desse universo.
+- **O Pergaminho Mágico:** a revelação das informações da celebração.
+- **A Varinha Mágica:** uma interação especial que transforma a experiência.
+- **O Chapéu Seletor:** um momento temático de descoberta.
+- **O Convite Final:** todas as informações reunidas para os convidados.
+
+Cada cena combina elementos visuais, animações e efeitos para criar uma experiência fluida e envolvente.
+
+## ✨ Tecnologia por trás da magia
+
+O projeto utiliza tecnologias modernas para proporcionar uma experiência visual rica, responsiva e otimizada.
+
+| Tecnologia | Aplicação |
 |---|---|
-| Castelo noturno | `public/cenas/01-castelo/castelo.webp` |
-| Biblioteca (fundo do livro, da carta e do convite final) | `public/cenas/02-livro/fundo.webp` |
-| Livro recortado com transparência | `public/cenas/02-livro/livro.png` |
-| Envelope recortado com transparência | `public/cenas/03-carta/envelope.png` |
-| Pergaminho com mapa | `public/cenas/04-pergaminho/pergaminho.webp` |
-| Varinha recortada com transparência | `public/cenas/05-varinha/varinha.png` |
-| Chapéu recortado com transparência | `public/cenas/07-chapeu/chapeu.png` |
+| React | Construção da interface e componentes |
+| TypeScript | Estruturação e segurança do código |
+| Vite | Desenvolvimento e compilação |
+| Tailwind CSS v4 | Estilização da interface |
+| Framer Motion | Animações e transições |
+| GSAP | Animações avançadas e sequências |
+| Canvas 2D | Partículas, luzes, chamas e efeitos mágicos |
+| canvas-confetti | Efeitos comemorativos |
+| Sharp | Otimização de imagens |
 
-As imagens-fonte recebidas foram copiadas, sem edição, para `imagens-originais/`. Essa pasta é ignorada pelo Git e deve ser mantida como backup. O recorte do livro veio da imagem completa da biblioteca; a silhueta do envelope foi refinada para remover o cenário sem perder o selo.
+O projeto também utiliza DeviceOrientation para efeitos de movimento e parallax em dispositivos compatíveis, com animações automáticas como alternativa.
 
-`backgrounds` aceita caminhos antigos de imagem única e também camadas por cena:
+## 📱 Experiência mobile-first
 
-```ts
-backgrounds: {
-  castle: {
-    background: '/cenas/castelo/fundo.webp',
-    middle: '/cenas/castelo/meio.webp',
-    foreground: '/cenas/castelo/frente.png',
-  },
-  book: {
-    background: '/cenas/livro/fundo.webp',
-    middle: '/cenas/livro/meio.webp',
-  },
-}
-```
+A experiência foi projetada prioritariamente para celulares, onde o convite pode ser explorado de maneira natural e intuitiva.
 
-Adicione as imagens em `public/cenas/<cena>/`. As camadas ficam atrás dos efeitos de código: luz, partículas, névoa, gradação e conteúdo. Para melhor resultado, use fundos em retrato **1080 × 1920 px** (9:16), WebP com até **250 KB**; recortes transparentes em PNG com até **1200 px** no maior lado e até **150 KB**. Prepare camadas separadas e alinhadas (fundo distante, plano médio e primeiro plano) com folga de 8–12% nas bordas para o parallax. Evite texto dentro das imagens.
+- Interface adaptada a diferentes tamanhos de tela.
+- Cenas com proporção visual inspirada no formato 9:16.
+- Animações suaves e transições entre ambientes.
+- Efeitos visuais renderizados em Canvas 2D.
+- Pré-carregamento da próxima cena.
+- Experiência centralizada em uma moldura de celular em telas desktop.
 
-Separe a composição em três planos: fundo distante com céu/montanhas; plano médio com castelo ou cenário; primeiro plano transparente com árvores, molduras ou objetos. Mantenha cada camada alinhada na mesma tela de 1080 × 1920. Use WebP para fotografias e PNG para elementos com transparência. O convite pré-carrega a cena seguinte e aplica as posições percentuais de luzes configuradas em `lightSources`; ajuste esses pontos quando trocar um cenário.
+Resoluções de referência para validação:
 
-Para otimizar as imagens depois de substituí-las:
+- 360 × 740 px
+- 390 × 844 px
+- 430 × 932 px
 
-```bash
-npm run otimizar-imagens
-```
+## 🪄 Personalização do convite
 
-O script usa `sharp`, converte os três fundos-fonte de `imagens-originais/` para WebP 1080 × 1920 e otimiza os quatro PNGs com alpha nos caminhos acima. Ele valida os limites de tamanho e interrompe com erro explícito se uma imagem não puder atendê-los. Para trocar um fundo, atualize o arquivo-fonte correspondente em `imagens-originais/`; para trocar um objeto, substitua o PNG transparente no destino antes de executar o script.
+Toda a configuração principal está concentrada em:
 
-Para ativar música, coloque um MP3 pequeno em `public/` e informe seu caminho em `music` (por exemplo, `/musica.mp3`). O áudio só inicia depois da primeira interação, conforme as regras do navegador.
+`src/config/convite.ts`
 
-Os dados de exemplo são fictícios. Troque o telefone antes de usar confirmação pelo WhatsApp. Sem um telefone configurado, o formulário explica o que falta e não abre um link inválido.
+Esse arquivo permite adaptar a experiência para outra comemoração sem precisar modificar os componentes da aplicação.
 
-## Executar e validar
+É possível personalizar:
+
+- Nome e lema da academia.
+- Nome e idade da criança.
+- Data, horário e fuso horário.
+- Endereço e localização no mapa.
+- WhatsApp dos responsáveis.
+- Prazo para confirmação de presença.
+- Traje recomendado.
+- Informações sobre presentes.
+- Chave Pix e nome do titular.
+- Música de fundo.
+- Paleta de cores e cenários.
+- Cenas, medalhões e efeitos visuais.
+
+Os dados de exemplo são fictícios. Antes de publicar, configure os dados reais, especialmente o telefone e as informações de pagamento, caso sejam exibidas.
+
+## 🎨 Cenários e elementos visuais
+
+Os recursos gráficos estão organizados na pasta `public/cenas/`.
+
+| Elemento | Arquivo |
+|---|---|
+| Castelo noturno | `01-castelo/castelo.webp` |
+| Biblioteca | `02-livro/fundo.webp` |
+| Livro encantado | `02-livro/livro.png` |
+| Envelope mágico | `03-carta/envelope.png` |
+| Pergaminho | `04-pergaminho/pergaminho.webp` |
+| Varinha | `05-varinha/varinha.png` |
+| Chapéu | `07-chapeu/chapeu.png` |
+
+As imagens originais recebidas estão preservadas em `imagens-originais/`, utilizada como backup e ignorada pelo Git.
+
+### Preparação dos assets
+
+Para manter a qualidade visual e o desempenho:
+
+- Fundos preferencialmente em 1080 × 1920 px.
+- Imagens fotográficas em WebP.
+- Elementos transparentes em PNG.
+- Fundos com até 250 KB.
+- Elementos transparentes com até 150 KB.
+- Composições alinhadas para permitir efeitos de parallax.
+- Evite inserir textos diretamente nas imagens.
+
+O projeto também aceita fundos em múltiplas camadas, permitindo separar cenário distante, plano médio e primeiro plano.
+
+Para otimizar os arquivos após substituí-los:
+
+`npm run otimizar-imagens`
+
+O script utiliza Sharp para converter e validar os recursos gráficos.
+
+## 🎵 Música e efeitos
+
+A experiência pode incluir música ambiente para reforçar a atmosfera de fantasia.
+
+Para ativá-la:
+
+1. Adicione um arquivo MP3 leve dentro de `public/`.
+2. Configure o caminho em `music`, no arquivo `src/config/convite.ts`.
+3. A reprodução será iniciada após a primeira interação do visitante, respeitando as políticas dos navegadores.
+
+## 🚀 Como executar
+
+Pré-requisitos: Node.js e npm instalados.
+
+Instale as dependências:
 
 ```bash
 npm install
+```
+
+Inicie o ambiente de desenvolvimento:
+
+```bash
 npm run dev
+```
+
+Para acessar pelo celular na mesma rede Wi-Fi:
+
+```bash
+npm run dev -- --host 0.0.0.0
+```
+
+Utilize no navegador do celular o endereço de rede informado pelo Vite.
+
+### Validar a versão de produção
+
+```bash
 npm run build
 ```
 
-Para testar em um celular conectado à mesma rede Wi-Fi:
+## 🌐 Publicação
 
-```bash
-npm run dev -- --host
-```
+O projeto pode ser publicado em plataformas de hospedagem modernas.
 
-Abra no celular o endereço de rede mostrado pelo Vite. Confira especialmente 360×740, 390×844 e 430×932; em desktop, a experiência fica centralizada em uma moldura de celular.
+**Vercel**
+- Build Command: `npm run build`
+- Output Directory: `dist`
 
-## Publicar
+**Netlify**
+- Build Command: `npm run build`
+- Publish Directory: `dist`
 
-- **Vercel:** importe o repositório, mantenha o comando de build `npm run build` e a pasta de saída `dist`.
-- **Netlify:** use `npm run build` como comando de build e `dist` como diretório de publicação.
+Após a publicação, o convite poderá ser acessado por um link e compartilhado diretamente com os convidados.
 
-Tailwind CSS v4 estiliza a interface, Framer Motion e GSAP animam, Canvas 2D desenha partículas, chamas, luzes e a máscara de revelação, `canvas-confetti` celebra as interações, e `sharp` prepara os assets. DeviceOrientation habilita parallax quando permitido pelo navegador e há movimento automático como fallback.
+---
+
+*Academia de Magia de Valdoria*
+
+**Onde cada convite é uma convocação para o extraordinário.** 🪄
