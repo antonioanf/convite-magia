@@ -178,13 +178,11 @@ function SceneContent({ scene, config, onNext, onReveal, reduced }: {
   useEffect(() => {
     const root = rootRef.current;
     const target = root?.querySelector('.scene-art');
-    if (!target) return;
-    if (reduced) {
-      gsap.set(target, { y: 0, opacity: 1, scale: 1, filter: 'blur(0px)' });
-      return;
-    }
+    if (!target || reduced) return;
     const timeline = gsap.timeline();
     timeline.fromTo(target, { y: 18, opacity: 0.35, scale: 0.97, filter: 'blur(3px)' }, { y: 0, opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.05, ease: 'power3.out' });
+    if (scene === 'map') timeline.fromTo(root?.querySelectorAll('.map-ink') ?? [], { strokeDashoffset: 400 }, { strokeDashoffset: 0, duration: 1.6, stagger: 0.1 }, '-=0.3');
+    if (scene === 'castle') timeline.fromTo(root?.querySelectorAll('.castle-windows path') ?? [], { opacity: 0.04 }, { opacity: 1, duration: 0.2, stagger: 0.18, repeat: 0 }, '-=0.2');
     return () => { timeline.kill(); };
   }, [scene, reduced]);
 
@@ -232,7 +230,6 @@ function SceneContent({ scene, config, onNext, onReveal, reduced }: {
               ? <div className={`envelope-photo-stage ${envelopeOpening ? 'is-opening' : ''}`}>
                 <img src={config.assets.envelope} alt="Envelope de pergaminho fechado com selo de cera verde" />
                 <span className="envelope-flap-photo" aria-hidden="true" />
-                <span className="envelope-crest" aria-hidden="true"><AcademyCrest compact motto={config.crestMotto} /></span>
                 <span className="envelope-initials">{config.initials}</span>
               </div>
               : <div className="envelope"><div className="envelope-paper"><AcademyCrest compact motto={config.crestMotto} /><span>Uma noite mágica<br />espera por você...</span></div><div className="envelope-flap" /><div className="wax-seal"><AcademyCrest compact motto={config.crestMotto} /><span>{config.initials}</span></div></div>}
@@ -241,7 +238,6 @@ function SceneContent({ scene, config, onNext, onReveal, reduced }: {
         )}
         {scene === 'map' && (
           <div className="scene-art map-art parchment-copy">
-            <span className="parchment-crest" aria-hidden="true"><AcademyCrest compact motto={config.crestMotto} /></span>
             <div className="map-date">Dia {formatDate(new Date(config.dateTime))}</div>
             <p className="map-caption">O destino é uma festa encantada!</p>
           </div>
@@ -371,6 +367,7 @@ function App() {
   const [scene, setScene] = useState<SceneId>(() => sceneOrder.find((id) => convite.scenes[id]) ?? 'invitation');
   const [sheet, setSheet] = useState<SheetId>(null);
   const [soundOn, setSoundOn] = useState(Boolean(config.music));
+  const [musicPlaying, setMusicPlaying] = useState(false);
   const [slowDevice, setSlowDevice] = useState(false);
   const [visitorName, setVisitorName] = useState('');
   const [title, setTitle] = useState<MagicalTitle | null>(null);
@@ -437,7 +434,21 @@ function App() {
   }, [config.assets, config.backgrounds, config.scenes, scene]);
 
   useEffect(() => {
-    const visibility = () => setPageHidden(document.hidden);
+    const visibility = () => {
+      setPageHidden(document.hidden);
+      // Pausa a música quando o convite sai da tela e retoma ao voltar
+      const audio = audioRef.current;
+      if (!audio) return;
+      if (document.hidden) {
+        if (!audio.paused) {
+          audio.pause();
+          audio.dataset.resume = 'true';
+        }
+      } else if (audio.dataset.resume) {
+        delete audio.dataset.resume;
+        void audio.play().catch(() => undefined);
+      }
+    };
     document.addEventListener('visibilitychange', visibility);
     return () => document.removeEventListener('visibilitychange', visibility);
   }, []);
@@ -641,8 +652,12 @@ function App() {
         </defs>
       </svg>
       <div className="phone-frame" ref={phoneRef}>
-        <button className="sound-button" onClick={toggleMusic} aria-label={soundOn ? 'Desligar música' : 'Ligar música'} aria-pressed={soundOn}><Icon name="music" /><span>{soundOn ? '♫' : ''}</span></button>
-        {config.music && <audio ref={audioRef} src={config.music} loop preload="none" />}
+        <button className={`sound-button ${musicPlaying ? 'is-playing' : 'is-muted'}`} onClick={toggleMusic} aria-label={musicPlaying ? 'Música tocando — toque para desligar' : 'Música desligada — toque para ligar'} aria-pressed={musicPlaying} title={musicPlaying ? 'Música tocando' : 'Música desligada'}>
+          {musicPlaying
+            ? <span className="sound-bars" aria-hidden="true"><i /><i /><i /><i /></span>
+            : <Icon name="music" />}
+        </button>
+        {config.music && <audio ref={audioRef} src={config.music} loop preload="none" onPlaying={() => setMusicPlaying(true)} onPause={() => setMusicPlaying(false)} onEnded={() => setMusicPlaying(false)} />}
         <AnimatePresence mode="wait">
           {activeScene ? (
             <motion.div
@@ -681,7 +696,7 @@ function App() {
           {sheet === 'location' && <div className="info-panel"><div className="info-illustration"><Icon name="map" /></div><h3>{config.venue}</h3><p>{config.address}</p><a className="primary-button" href={config.mapUrl} target="_blank" rel="noreferrer">Abrir no Google Maps <span>↗</span></a><button className="secondary-button" onClick={addToCalendar}>Adicionar à agenda <span>＋</span></button><a className="text-link" href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(`${config.age} anos de ${config.name}`)}&dates=${new Date(config.dateTime).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '')}/${new Date(new Date(config.dateTime).getTime() + 3 * 3600000).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '')}&details=${encodeURIComponent(config.phrase)}&location=${encodeURIComponent(`${config.venue}, ${config.address}`)}`} target="_blank" rel="noreferrer">Adicionar ao Google Agenda ↗</a></div>}
           {sheet === 'dress' && <div className="info-panel"><div className="info-illustration"><Icon name="dress" /></div><p className="dress-message">{config.dressCode}</p><span className="sparkle-line">✧ ─── ✦ ─── ✧</span></div>}
           {sheet === 'gifts' && <div className="gift-panel"><p>O melhor presente é a sua presença! Se quiser, estas ideias podem ajudar:</p><div className="gift-grid">{config.gifts.map((gift) => <div className="gift-card" key={gift.item}><Icon name={gift.icon} /><strong>{gift.item}</strong>{gift.size && <span>{gift.size}</span>}</div>)}</div><div className="pix-card"><div><span>✦ CONTRIBUIÇÃO ENCANTADA</span><strong>{config.pixHolder || 'Chave Pix'}</strong><small>{config.pixKey || 'Chave disponível em breve'}</small></div><button onClick={copyPix} aria-label="Copiar chave Pix"><Icon name="copy" /></button></div></div>}
-          {sheet === 'hat' && <div className="hat-panel"><div className="hat-stage"><span className="hat-runes" aria-hidden="true">✦ ⟡ ☾ ⟡ ✦</span><HatCharacter thinking={hatThinking} speaking={displayedHatMessage.length < hatMessage.length} image={config.assets.hat} /></div><div className={`speech-bubble ${hatThinking ? 'typing' : ''}`}>{displayedHatMessage}</div><label className="hat-name">Seu nome<input value={visitorName} onChange={(event) => { setVisitorName(event.target.value); setTitle(null); }} onKeyDown={(event) => { if (event.key === 'Enter') makeTitle(); }} maxLength={40} placeholder="Digite seu nome" /></label><button className="primary-button" onClick={makeTitle} disabled={hatThinking || !visitorName.trim()}>{title ? 'Sortear meu título' : 'Descobrir meu título'} <span>✦</span></button>{title && <motion.div className="hat-result" initial={{ opacity: 0, scale: 0.7, rotate: -8 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} style={{ '--title-color': title.color } as React.CSSProperties}><span className="result-star">✦</span><Icon name={title.icon} /><strong>{title.title}</strong><button onClick={() => { setSheet('rsvp'); setRsvpName(visitorName); }}>Confirmar presença com meu título</button></motion.div>}</div>}
+          {sheet === 'hat' && <div className="hat-panel"><HatCharacter thinking={hatThinking} speaking={displayedHatMessage.length < hatMessage.length} /><div className={`speech-bubble ${hatThinking ? 'typing' : ''}`}>{displayedHatMessage}</div><label className="hat-name">Seu nome<input value={visitorName} onChange={(event) => { setVisitorName(event.target.value); setTitle(null); }} onKeyDown={(event) => { if (event.key === 'Enter') makeTitle(); }} maxLength={40} placeholder="Digite seu nome" /></label><button className="primary-button" onClick={makeTitle} disabled={hatThinking || !visitorName.trim()}>{title ? 'Sortear meu título' : 'Descobrir meu título'} <span>✦</span></button>{title && <motion.div className="hat-result" initial={{ opacity: 0, scale: 0.7, rotate: -8 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} style={{ '--title-color': title.color } as React.CSSProperties}><span className="result-star">✦</span><Icon name={title.icon} /><strong>{title.title}</strong><button onClick={() => { setSheet('rsvp'); setRsvpName(visitorName); }}>Confirmar presença com meu título</button></motion.div>}</div>}
         </Sheet>}
       </AnimatePresence>
       <AnimatePresence>{toast && <motion.div className="toast" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }} role="status">{toast}</motion.div>}</AnimatePresence>

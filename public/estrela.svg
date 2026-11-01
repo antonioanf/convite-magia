@@ -1,10 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f8dfa0"/><stop offset="1" stop-color="#a97736"/></linearGradient></defs>
-  <rect width="64" height="64" rx="16" fill="#101d22"/>
-  <path d="M12 9h40v29c0 9-7 14-20 21-13-7-20-12-20-21Z" fill="#285246" stroke="url(#g)" stroke-width="2.5"/>
-  <path d="M32 11v38M14 28h36" stroke="#f5d48a" stroke-opacity=".55"/>
-  <path d="M19 26a6 6 0 1 1 7-9 5 5 0 1 0-7 9Z" fill="#f5d48a"/>
-  <path d="M39 17v9m-4-7h8m-8 0-2 3m10-3 2 3" fill="none" stroke="#f5d48a" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="m41 32 2 4 5 1-3.5 3.5 1 5-4.5-2.5-4.5 2.5 1-5L34 37l5-.8Z" fill="#f5d48a"/>
-  <path d="M17 37q7-4 14 0v8q-7-4-14 0Zm15 0q7-4 15 0v8q-8-4-15 0Z" fill="#e2c481" stroke="#75532d" stroke-width=".7"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 150">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#fff0b0"/>
+      <stop offset=".35" stop-color="#b47b34"/>
+      <stop offset=".58" stop-color="#f4d184"/>
+      <stop offset="1" stop-color="#765027"/>
+    </linearGradient>
+    <linearGradient id="enamel" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#183a38"/>
+      <stop offset=".52" stop-color="#28443d"/>
+      <stop offset="1" stop-color="#111f25"/>
+    </linearGradient>
+    <filter id="relief" x="-30%" y="-20%" width="160%" height="150%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur"/>
+      <feSpecularLighting in="blur" surfaceScale="4" specularConstant=".75" specularExponent="18" lighting-color="#fff1ba" result="shine">
+        <fePointLight x="-40" y="-35" z="70"/>
+      </feSpecularLighting>
+      <feComposite in="shine" in2="SourceAlpha" operator="in" result="spec"/>
+      <feMerge>
+        <feMergeNode in="SourceGraphic"/>
+        <feMergeNode in="spec"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <path d="M10 10h100v76c0 25-18 44-50 58C28 130 10 111 10 86Z" fill="url(#enamel)" stroke="url(#gold)" stroke-width="5" filter="url(#relief)"/>
+  <path d="M17 17h86v68c0 21-16 37-43 50C33 122 17 106 17 85Z" fill="none" stroke="url(#gold)" stroke-opacity=".7" stroke-width="1.5"/>
+  <path d="M60 18v103M18 69h84" stroke="#d7ae64" stroke-opacity=".58" stroke-width="1.3"/>
+  <path d="M33 53a14 14 0 1 1 16-22 12 12 0 1 0-16 22Z" fill="#f2d590" stroke="#8a602b" stroke-width="1.5"/>
+  <path d="M78 32v22m-5-17h11m-11 0-4 5m15-5 4 5m-10 12-4 8m5-8 5 8" fill="none" stroke="#f2d590" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="m84 75 3.8 7.8 8.6 1.2-6.2 6 1.5 8.5-7.7-4.1-7.7 4.1 1.5-8.5-6.2-6 8.6-1.2Z" fill="#f2d590" stroke="#8a602b" stroke-width="1.3"/>
+  <path d="M28 98q16-10 32 0v15q-16-10-32 0Zm32 0q16-10 32 0v15q-16-10-32 0Z" fill="#e2c481" stroke="#724f2b" stroke-width="1.5"/>
+  <path d="M60 98v16" stroke="#72502c" stroke-width="1.3"/>
+  <text x="60" y="139" text-anchor="middle" fill="#f3d996" font-size="7" font-family="Georgia,serif" font-style="italic">Lux in Arcanis</text>
 </svg>

@@ -71,7 +71,7 @@ export interface InviteConfig {
 }
 
 export const convite: InviteConfig = {
-  academyName: 'Academia de Magia de Valdoria',
+  academyName: 'Escola de Magia e Bruxaria de Valdoria',
   crestMotto: 'Lux in Arcanis',
   name: 'Anna Liz',
   age: 4,
@@ -92,7 +92,7 @@ export const convite: InviteConfig = {
   ],
   pixKey: '',
   pixHolder: '',
-  music: '',
+  music: '/musica/tema-magico.wav',
   assets: {
     castle: '/cenas/01-castelo/castelo.webp',
     book: '/cenas/02-livro/livro.png',

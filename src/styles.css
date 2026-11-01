@@ -32,7 +32,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .screen { position: absolute; inset: 0; }
 .sound-button { position: absolute; z-index: 20; top: max(16px, env(safe-area-inset-top)); left: max(16px, env(safe-area-inset-left)); width: 48px; height: 48px; border: 1px solid #d4a24c77; border-radius: 50%; display: flex; align-items: center; justify-content: center; gap: 1px; background: #120d0acc; color: var(--pale-gold); cursor: pointer; backdrop-filter: blur(8px); }
 .sound-button svg { width: 19px; height: 19px; }
-.sound-button span { font-size: 12px; }
+.sound-button.is-muted { opacity: .7; }
+.sound-button.is-muted::after { content: ''; position: absolute; width: 26px; height: 2px; background: var(--pale-gold); border-radius: 2px; transform: rotate(-45deg); box-shadow: 0 0 0 1.5px #120d0acc; }
+.sound-button.is-playing { border-color: #f4d184; box-shadow: 0 0 0 0 #f4d18466; animation: sound-pulse 2.2s ease-out infinite; }
+.sound-bars { display: flex; align-items: flex-end; gap: 3px; height: 18px; }
+.sound-bars i { display: block; width: 3px; height: 100%; border-radius: 2px; background: var(--pale-gold); transform-origin: bottom; animation: sound-bar 1s ease-in-out infinite; }
+.sound-bars i:nth-child(2) { animation-delay: -.35s; }
+.sound-bars i:nth-child(3) { animation-delay: -.7s; }
+.sound-bars i:nth-child(4) { animation-delay: -.15s; }
+@keyframes sound-bar { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
+@keyframes sound-pulse { 0% { box-shadow: 0 0 0 0 #f4d18466; } 70%, 100% { box-shadow: 0 0 0 12px #f4d18400; } }
+@media (prefers-reduced-motion: reduce) { .sound-bars i, .sound-button.is-playing { animation: none; } .sound-bars i:nth-child(odd) { transform: scaleY(.6); } }
 .library-scene { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(ellipse at 50% 42%, #34203d 0%, #1c1425 49%, #120d0a 100%); }
 .library-shelves { position: absolute; inset: 0 0 20%; opacity: .43; background: linear-gradient(90deg, transparent 4%, #100b14 4.5%, transparent 5.2%, transparent 30%, #110b15 30.7%, transparent 31.4%, transparent 67%, #100b14 67.7%, transparent 68.3%, transparent 95%, #0c0810 96%); }
 .library-shelves::before, .library-shelves::after { content: ""; position: absolute; inset: 15% 0 auto; height: 8px; background: linear-gradient(#684735, #241822 75%); box-shadow: 0 80px #49372e, 0 160px #49372e; opacity: .8; }
